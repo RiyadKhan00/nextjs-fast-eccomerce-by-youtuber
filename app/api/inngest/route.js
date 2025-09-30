@@ -7,7 +7,7 @@ import {
 } from '@/config/ingest';
 
 // Create an API that serves zero functions
-export const { GET, POST } = serve({
+export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [syncUserCreation, syncUserUpdation, asyncUserDeletion],
 });
