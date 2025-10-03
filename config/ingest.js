@@ -61,8 +61,20 @@ export const ayncUserDeletion = inngest.createFunction(
   },
   async ({ event }) => {
     const { id } = event.data;
+    // await connectDB();
+    // await User.findByIdAndDelete(id);
 
-    await connectDB();
-    await User.findByIdAndDelete(id);
+    try {
+      await connectDB();
+      const deletedUser = await User.findByIdAndDelete(id);
+      if (!deletedUser) {
+        console.log('⚠️ User already deleted:', id);
+      } else {
+        console.log('✅ User deleted:', id);
+      }
+    } catch (err) {
+      console.error('❌ User deletion failed:', err);
+      throw err;
+    }
   }
 );
