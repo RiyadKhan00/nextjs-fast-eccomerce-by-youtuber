@@ -11,7 +11,7 @@ export const syncUserCreation = inngest.createFunction(
     id: 'sync-user-from-cleak',
   },
   {
-    event: 'clerk/user.create',
+    event: 'clerk/user.created',
   },
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } =
@@ -34,7 +34,7 @@ export const syncUserUpdation = inngest.createFunction(
     id: 'update-user-from-clerk',
   },
   {
-    event: 'clerk/user.update',
+    event: 'clerk/user.updated',
   },
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } =
@@ -47,12 +47,12 @@ export const syncUserUpdation = inngest.createFunction(
     };
 
     await connectDB();
-    await User.findByIdAndUpdate(_id, userData);
+    await User.findByIdAndUpdate(id, userData);
   }
 );
 
 // Innget Function to delete usesr from database
-export const asyncUserDeletion = inngest.createFunction(
+export const ayncUserDeletion = inngest.createFunction(
   {
     id: 'delete-user-with-clerk',
   },
