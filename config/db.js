@@ -37,8 +37,13 @@ async function connectDB() {
   }
 
   if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      // serverSelectionTimeoutMS: 10000,
+    };
+
     cached.promise = mongoose
-      .connect(`${process.env.MONGODB_URI}/nextjsEcommerceProject`)
+      .connect(`${process.env.MONGODB_URI}/nextjsEcommerceProject`, opts)
       .then((mongoose) => mongoose);
   }
 
